@@ -8,7 +8,7 @@ const Table = () => {
   useEffect(() => {
     const fetchTable1 = async () => {
       try {
-        const res = await fetch("http://localhost:5000/table1");
+        const res = await fetch("/api/table1");
         const data = await res.json();
         setTable1Data(data);
 
@@ -22,7 +22,7 @@ const Table = () => {
   useEffect(() => {
     const fetchTable2 = async () => {
       try {
-        const res = await fetch("http://localhost:5000/table2");
+        const res = await fetch("/api/table2");
         const data = await res.json();
         const formattedData = Object.keys(data).map(key => ({ category: key, value: data[key], }));
         setTable2Data(formattedData);
