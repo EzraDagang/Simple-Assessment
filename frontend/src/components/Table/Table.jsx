@@ -18,7 +18,7 @@ const Table = () => {
     fetchTable1();
   }, []);
 
-  useEffect(() => {
+useEffect(() => {
     if (table1Data.length === 0) return;
 
     const getValue = (idx) => {
