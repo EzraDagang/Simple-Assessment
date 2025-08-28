@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/api", tableRoutes);
 
-const staticPath = path.join(__dirname, "../frontend/dist");
+const staticPath = path.join(__dirname, "dist");
 
 if (require("fs").existsSync(staticPath)) {
     app.use(express.static(staticPath));
