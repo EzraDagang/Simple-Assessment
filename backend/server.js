@@ -15,16 +15,16 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/api", tableRoutes);
 
-const staticPath = path.join(__dirname, "dist");
-
-if (require("fs").existsSync(staticPath)) {
-    app.use(express.static(staticPath));
-    // Serve index.html for any non-API route
-    app.get(/(.*)/, (req, res) => {
-        res.sendFile(path.join(staticPath, "index.html"));
-    });
-} else {
-    console.warn("Warning: no frontend build found (dist or build). Make sure you run the frontend build before deploy.");
+if (process.env.NODE_ENV === "production") {
+    const staticPath = path.join(__dirname, "dist");
+    if (require("fs").existsSync(staticPath)) {
+        app.use(express.static(staticPath));
+        app.get(/.*/, (req, res) => {
+            res.sendFile(path.join(staticPath, "index.html"));
+        });
+    } else {
+        console.warn("Warning: no frontend build found (dist). Run frontend build first.");
+    }
 }
 
 async function startServer() {
