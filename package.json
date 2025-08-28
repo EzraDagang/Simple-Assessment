@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build:all": "npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install"
+  }
+}
