@@ -11,6 +11,7 @@ const Table = () => {
         const res = await fetch("http://localhost:5000/table1");
         const data = await res.json();
         setTable1Data(data);
+
       } catch (error) {
         console.error("Error fetching Table 1:", error);
       }
@@ -18,22 +19,20 @@ const Table = () => {
     fetchTable1();
   }, []);
 
-useEffect(() => {
-    if (table1Data.length === 0) return;
+  useEffect(() => {
+    const fetchTable2 = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/table2");
+        const data = await res.json();
+        const formattedData = Object.keys(data).map(key => ({ category: key, value: data[key], }));
+        setTable2Data(formattedData);
 
-    const getValue = (idx) => {
-      const item = table1Data.find((row) => row.index === idx);
-      return item ? item.value : 0;
-    };
+      } catch (err) {
+        console.error("Error fetching Table2:", err);
+      }
 
-    const computedTable2 = [
-      { category: "Alpha", value: getValue("A5") + getValue("A20") },
-      { category: "Beta", value: Math.floor(getValue("A15") / getValue("A7")) },
-      { category: "Charlie", value: getValue("A13") * getValue("A12") },
-    ];
-
-    setTable2Data(computedTable2);
-  }, [table1Data]);
+    }; fetchTable2();
+  }, []);
 
   return (
     <div className={styles.tableContainer}>
@@ -57,7 +56,7 @@ useEffect(() => {
       </table>
 
       <h2 className={styles.title}>Table 2</h2>
-      <table className= {`${styles.table} ${styles.table2}`}>
+      <table className={`${styles.table} ${styles.table2}`}>
         <thead>
           <tr>
             <th>Category</th>
